@@ -31,8 +31,10 @@ services:
       - NEXTCLOUD_ADMIN_PASSWORD=casaos
       - TRUSTED_PROXIES=
       - OVERWRITEPROTOCOL=http
-      - PHP_MEMORY_LIMIT=1024M
-      - PHP_UPLOAD_LIMIT=1024M
+      - PHP_MEMORY_LIMIT=4096M
+      - PHP_UPLOAD_LIMIT=4096M
+      - OVERWRITECLIURL=https://example.com
+      - OVERWRITEHOST=example.com
     # Specify the dependencies
     depends_on:
       db-nextcloud:
@@ -77,6 +79,12 @@ services:
         - container: OVERWRITEPROTOCOL
           description:
             en_us: Overwrite protocol
+        - container: OVERWRITECLIURL
+          description:
+            en_us: Overwrite CLI URL
+        - container: OVERWRITEHOST
+          description:
+            en_us: Overwrite host
         - container: PHP_UPLOAD_LIMIT
           description:
             en_us: PHP upload limit
