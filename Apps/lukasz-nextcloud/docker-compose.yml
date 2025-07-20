@@ -253,7 +253,7 @@ x-casaos:
   # Developer's name or identifier
   developer: "nextcloud"
   # Author of this configuration
-  author: BigBearTechWorld
+  author: Lukasz
   # Icon for the application
   icon: https://cdn.jsdelivr.net/gh/selfhst/icons/png/nextcloud.png
   # Thumbnail image (currently empty)
