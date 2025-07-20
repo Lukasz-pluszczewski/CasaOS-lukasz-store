@@ -1,0 +1,62 @@
+name: arcane
+services:
+  arcane:
+    container_name: arcane
+    image: ghcr.io/ofkm/arcane:latest
+    restart: unless-stopped
+    environment:
+      APP_ENV: production
+      PGID: "1000"
+      PUBLIC_SESSION_SECRET: supersecretsecret
+      PUID: "1000"
+
+
+    # Volumes to be mounted to the container
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /DATA/AppData/$AppID/data:/app/data
+
+    # Ports mapping between host and container
+    ports:
+      # Mapping port 8090 of the host to port 8090 of the container
+      - "8090:8090"
+
+    x-casaos: # CasaOS specific configuration
+      volumes:
+        - container: "/beszel_data"
+          description:
+            en_us: "Beszel Data"
+      ports:
+        - container: "8090"
+          description:
+            en_us: "Container Port: 8090"
+
+# CasaOS specific configuration
+x-casaos:
+  # Supported CPU architectures for the application
+  architectures:
+    - amd64
+    - arm64
+  # Main service of the application
+  main: arcane
+  description:
+    # Description in English
+    en_us: Monitor CPU, memory, network, and disk usage in real-time with historical data tracking. Arcane is a Simple and Elegant Docker Management UI written in Typescript and SvelteKit.
+  tagline:
+    # Short description or tagline in English
+    en_us: Docker management app
+  # Developer's name or identifier
+  developer: "ofkm"
+  # Author of this configuration
+  author: Lukasz-pluszczewski
+  # Icon for the application
+  icon: https://arcane.ofkm.dev/img/arcane.png
+  # Thumbnail image (currently empty)
+  thumbnail: ""
+  title:
+    # Title in English
+    en_us: Arcane
+  # Application category
+  category: Lukasz
+  # Port mapping information
+  port_map: "8090"
