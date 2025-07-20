@@ -7,9 +7,9 @@ name: lukasz-nextcloud
 services:
   # Service name: app
   # The `app` service definition
-  nextcloud:
+  lukasz-nextcloud:
     # Define the container name
-    container_name: nextcloud
+    container_name: lukasz-nextcloud
     # Use the nextcloud image from the official Docker Hub
     image: bigbeartechworld/big-bear-nextcloud-with-smbclient:0.0.10
     # Restart the container unless stopped
@@ -22,8 +22,8 @@ services:
       - /DATA/AppData/$AppID/html:/var/www/html
     # Set environment variables for the container
     environment:
-      - POSTGRES_HOST=pgbouncer
-      - REDIS_HOST=redis-nextcloud
+      - POSTGRES_HOST=lukasz-pgbouncer
+      - REDIS_HOST=lukasz-redis-nextcloud
       - POSTGRES_PASSWORD=casaos
       - POSTGRES_USER=casaos
       - POSTGRES_DB=nextcloud
@@ -37,14 +37,14 @@ services:
       - OVERWRITEHOST=example.com
     # Specify the dependencies
     depends_on:
-      db-nextcloud:
+      lukasz-db-nextcloud:
         condition: service_healthy
-      redis-nextcloud:
+      lukasz-redis-nextcloud:
         condition: service_healthy
 
     # Define the network
     networks:
-      - nextcloud_network
+      - lukasz_nextcloud_network
 
     x-casaos: # CasaOS specific configuration
       volumes:
@@ -94,8 +94,8 @@ services:
             en_us: "Container Port: 7580"
 
   # Define the database container for Nextcloud
-  db-nextcloud:
-    container_name: db-nextcloud
+  lukasz-db-nextcloud:
+    container_name: lukasz-db-nextcloud
     image: postgres:14.2
     restart: unless-stopped
     volumes:
@@ -105,7 +105,7 @@ services:
       - POSTGRES_USER=casaos # Set the PostgreSQL username
       - POSTGRES_DB=nextcloud # Set the name of the Nextcloud database
     networks:
-      - nextcloud_network # Connect to the Nextcloud network
+      - lukasz_nextcloud_network # Connect to the Nextcloud network
 
     # Healthcheck configuration for the database service
     healthcheck:
@@ -130,14 +130,14 @@ services:
           description:
             en_us: Database type
 
-  pgbouncer:
-    container_name: pgbouncer
+  lukasz-pgbouncer:
+    container_name: lukasz-pgbouncer
     image: edoburu/pgbouncer
     restart: unless-stopped
     environment:
       - DB_USER=casaos
       - DB_PASSWORD=casaos
-      - DB_HOST=db-nextcloud
+      - DB_HOST=lukasz-db-nextcloud
       - DB_NAME=nextcloud
       - POOL_MODE=transaction
       - MAX_CLIENT_CONN=200
@@ -148,7 +148,7 @@ services:
     ports:
       - 6432:5432
     networks:
-      - nextcloud_network
+      - lukasz_nextcloud_network
     x-casaos:
       envs:
         - container: DB_USER
@@ -184,15 +184,15 @@ services:
 
   # Redis configuration for Nextcloud
 
-  redis-nextcloud:
-    container_name: redis-nextcloud
+  lukasz-redis-nextcloud:
+    container_name: lukasz-redis-nextcloud
     user: "1000:1000"
     image: redis:6.2.6
     restart: unless-stopped
     volumes:
       - "/DATA/AppData/$AppID/redis:/data" # Mount the Redis data directory
     networks:
-      - nextcloud_network # Connect to the Nextcloud network
+      - lukasz_nextcloud_network # Connect to the Nextcloud network
 
     # Healthcheck configuration for the Redis service
     healthcheck:
@@ -211,7 +211,7 @@ services:
           description:
             en_us: "Container Port: 6379"
 
-  cron:
+  lukasz-cron:
     image: bigbeartechworld/big-bear-nextcloud-with-smbclient:0.0.10
     restart: unless-stopped
     volumes:
@@ -234,7 +234,7 @@ services:
 
 # Network definition for the lukasz-nextcloud application
 networks:
-  nextcloud_network:
+  lukasz_nextcloud_network:
     driver: bridge
 
 # CasaOS specific configuration
