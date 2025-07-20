@@ -1,9 +1,9 @@
 # Configuration for nextcloud setup
 
-# Name of the big-bear-nextcloud application
-name: big-bear-nextcloud
+# Name of the lukasz-nextcloud application
+name: lukasz-nextcloud
 
-# Service definitions for the big-bear-nextcloud application
+# Service definitions for the lukasz-nextcloud application
 services:
   # Service name: app
   # The `app` service definition
@@ -232,7 +232,7 @@ services:
           description:
             en_us: "Container Path: /var/www/html"
 
-# Network definition for the big-bear-nextcloud application
+# Network definition for the lukasz-nextcloud application
 networks:
   nextcloud_network:
     driver: bridge
