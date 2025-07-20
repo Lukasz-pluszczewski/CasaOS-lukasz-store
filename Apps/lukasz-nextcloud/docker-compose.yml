@@ -1,7 +1,7 @@
 # Configuration for nextcloud setup
 
 # Name of the lukasz-nextcloud application
-name: lukasz-nextcloud
+name: lukaszcloud
 
 # Service definitions for the lukasz-nextcloud application
 services:
