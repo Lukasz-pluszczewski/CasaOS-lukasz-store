@@ -1,7 +1,7 @@
 # Configuration for nextcloud setup
 
 # Name of the lukasz-nextcloud application
-name: lukaszcloud
+name: lukasz-nextcloud
 
 # Service definitions for the lukasz-nextcloud application
 services:
@@ -244,7 +244,7 @@ x-casaos:
     - amd64
     - arm64
   # Main service of the application
-  main: nextcloud
+  main: lukasz-nextcloud
   description:
     # Description in English
     en_us: Nextcloud puts your data at your fingertips, under your control. Store your documents, calendar, contacts and photos on a server at home, at one of our providers or in a data center you trust.
